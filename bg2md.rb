@@ -20,7 +20,7 @@
 # - cross-refs
 # - copyright info
 #
-# The output also gets copied to the clipboard.
+# When run in a terminal, the output also gets copied to the clipboard.
 # When the 'Lord' is shown with small caps (in OT), it's output as 'LORD'.
 # When the original is shown red letter (words of Jesus), this is rendered in bold instead.
 #
@@ -466,4 +466,6 @@ output_text += copyright.to_s if opts[:copyright]
 # Then write out text to screen
 puts
 puts output_text
-Clipboard.copy(output_text)
+# Copy only for interactive use. A wrapper that captures the output (bg2obs.sh)
+# calls this once per chapter and would overwrite the user's clipboard each time.
+Clipboard.copy(output_text) if $stdout.tty?
