@@ -339,6 +339,13 @@ passage.gsub!(%r{<h1.*?</h1>\s*}, '')
 passage.gsub!(%r{<h2>.*?</h2>}, '')
 # ignore all <hr />
 passage.gsub!(%r{<hr />}, '')
+# A chapter can start in the middle of a paragraph. Then BibleGateway tags both
+# numbers "mid-paragraph" and gives verse 1 its own versenum after the chapternum.
+# Change this to the usual chapter-start shape, so verse 1 gets one heading.
+passage.gsub!(%r{(<span class="chapternum)\s+mid-paragraph(">\s*\d+\s*</span>)\s*<sup class="versenum\s+mid-paragraph">\s*1\s*</sup>}, '\1\2')
+# In poetry, a verse that starts mid-line has "versenum mid-line". Remove each
+# extra class, so the number becomes a heading and not raw <sup> HTML.
+passage.gsub!(%r{class="(chapternum|versenum)\s+[^"]*"}, 'class="\1"')
 # simplify verse/chapters numbers (or remove entirely if that option set)
 if opts[:numbering]
   # Now see whether to start chapters and verses as H5 or H6 
