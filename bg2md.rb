@@ -84,9 +84,9 @@ DEFAULT_VERSION = 'NET'.freeze
 START_READ_CONTENT_RE = '<h1 class=[\'"]passage-display[\'"]>'.freeze # seem to see both versions of this -- perhaps Jude is an outlier?
 END_READ_CONTENT_RE   = '^<script '.freeze
 # Match parts of lines which actually contain passage text
-PASSAGE_RE = '(<p><span id=|<p class=|<p>\s?<span (?:id|class)=|<h3).*?(?:<\/p>|<\/h3>)'.freeze
+PASSAGE_RE = '(<p><span id=|<p class=|<p>\s?<span (?:id|class)=|<h3(?: class="[^"]*")?><span).*?(?:<\/p>|<\/h3>)'.freeze
 # Match parts of lines which actually contain passage text -- this uses non-matching groups to allow both options and capture
-MATCH_PASSAGE_RE = '((?:<p><span id=|<p class=|<p>\s?<span (?:id|class)=|<h3).*?(?:<\/p>|<\/h3>))'.freeze
+MATCH_PASSAGE_RE = '((?:<p><span id=|<p class=|<p>\s?<span (?:id|class)=|<h3(?: class="[^"]*")?><span).*?(?:<\/p>|<\/h3>))'.freeze
 REF_RE = '(<(?:div|span) class=\'bcv\'><(?:div|span) class="dropdown-display"><(?:div|span) class="dropdown-display-text">|<span class="passage-display-bcv">).*?(<\/div>|<\/span>)'.freeze
 MATCH_REF_RE = '(?:<(?:div|span) class=\'bcv\'><(?:div|span) class="dropdown-display"><(?:div|span) class="dropdown-display-text">|<span class="passage-display-bcv">)(.*?)(?:<\/div>|<\/span>)'.freeze
 VERSION_RE = '(<(?:div|span) class=\'translation\'><(?:div|span) class="dropdown-display"><(?:div|span) class="dropdown-display-text">|<span class="passage-display-version">).*?(<\/div>|<\/span>)'.freeze
@@ -288,7 +288,8 @@ while n < working_line_count
   # Extract version title
   line.scan(/#{MATCH_VERSION_RE}/) { |m| version = m.join } if line =~ /#{VERSION_RE}/
   # Extract passage
-  line.scan(/#{MATCH_PASSAGE_RE}/) { |m| passage += m.join } if line =~ /#{PASSAGE_RE}/
+  # Keep only matches that contain verse text. Page chrome (newsletter, settings) also uses <p class=...>.
+  line.scan(/#{MATCH_PASSAGE_RE}/) { |m| passage += m.join if m.join.include?('class="text ') } if line =~ /#{PASSAGE_RE}/
   # Extract copyright
   line.scan(/#{MATCH_COPYRIGHT_STRING_RE}/) { |m| copyright = m.join } if line =~ /#{COPYRIGHT_STRING_RE}/
   # Extract footnote
