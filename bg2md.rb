@@ -87,10 +87,10 @@ END_READ_CONTENT_RE   = '^<script '.freeze
 PASSAGE_RE = '(<p><span id=|<p class=|<p>\s?<span class=|<h3).*?(?:<\/p>|<\/h3>)'.freeze
 # Match parts of lines which actually contain passage text -- this uses non-matching groups to allow both options and capture
 MATCH_PASSAGE_RE = '((?:<p><span id=|<p class=|<p>\s?<span class=|<h3).*?(?:<\/p>|<\/h3>))'.freeze
-REF_RE = '(<div class=\'bcv\'><div class="dropdown-display"><div class="dropdown-display-text">|<span class="passage-display-bcv">).*?(<\/div>|<\/span>)'.freeze
-MATCH_REF_RE = '(?:<div class=\'bcv\'><div class="dropdown-display"><div class="dropdown-display-text">|<span class="passage-display-bcv">)(.*?)(?:<\/div>|<\/span>)'.freeze
-VERSION_RE = '(<div class=\'translation\'><div class="dropdown-display"><div class="dropdown-display-text">|<span class="passage-display-version">).*?(<\/div>|<\/span>)'.freeze
-MATCH_VERSION_RE = '(?:<div class=\'translation\'><div class="dropdown-display"><div class="dropdown-display-text">|<span class="passage-display-version">)(.*?)(?:<\/div>|<\/span>)'.freeze
+REF_RE = '(<(?:div|span) class=\'bcv\'><(?:div|span) class="dropdown-display"><(?:div|span) class="dropdown-display-text">|<span class="passage-display-bcv">).*?(<\/div>|<\/span>)'.freeze
+MATCH_REF_RE = '(?:<(?:div|span) class=\'bcv\'><(?:div|span) class="dropdown-display"><(?:div|span) class="dropdown-display-text">|<span class="passage-display-bcv">)(.*?)(?:<\/div>|<\/span>)'.freeze
+VERSION_RE = '(<(?:div|span) class=\'translation\'><(?:div|span) class="dropdown-display"><(?:div|span) class="dropdown-display-text">|<span class="passage-display-version">).*?(<\/div>|<\/span>)'.freeze
+MATCH_VERSION_RE = '(?:<(?:div|span) class=\'translation\'><(?:div|span) class="dropdown-display"><(?:div|span) class="dropdown-display-text">|<span class="passage-display-version">)(.*?)(?:<\/div>|<\/span>)'.freeze
 FOOTNOTE_RE = '<span class=\'footnote-text\'>.*?<\/span>'.freeze
 MATCH_FOOTNOTE_RE = 'title=.*?>(.*?)<\/a>( )<span class=\'footnote-text\'>(.*)<\/span><\/li>'.freeze
 CROSSREF_RE = '<a class="crossref-link".*?">.*?</a></li>'.freeze
