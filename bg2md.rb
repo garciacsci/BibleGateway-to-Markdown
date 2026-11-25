@@ -84,9 +84,9 @@ DEFAULT_VERSION = 'NET'.freeze
 START_READ_CONTENT_RE = '<h1 class=[\'"]passage-display[\'"]>'.freeze # seem to see both versions of this -- perhaps Jude is an outlier?
 END_READ_CONTENT_RE   = '^<script '.freeze
 # Match parts of lines which actually contain passage text
-PASSAGE_RE = '(<p><span id=|<p class=|<p>\s?<span class=|<h3).*?(?:<\/p>|<\/h3>)'.freeze
+PASSAGE_RE = '(<p><span id=|<p class=|<p>\s?<span (?:id|class)=|<h3).*?(?:<\/p>|<\/h3>)'.freeze
 # Match parts of lines which actually contain passage text -- this uses non-matching groups to allow both options and capture
-MATCH_PASSAGE_RE = '((?:<p><span id=|<p class=|<p>\s?<span class=|<h3).*?(?:<\/p>|<\/h3>))'.freeze
+MATCH_PASSAGE_RE = '((?:<p><span id=|<p class=|<p>\s?<span (?:id|class)=|<h3).*?(?:<\/p>|<\/h3>))'.freeze
 REF_RE = '(<(?:div|span) class=\'bcv\'><(?:div|span) class="dropdown-display"><(?:div|span) class="dropdown-display-text">|<span class="passage-display-bcv">).*?(<\/div>|<\/span>)'.freeze
 MATCH_REF_RE = '(?:<(?:div|span) class=\'bcv\'><(?:div|span) class="dropdown-display"><(?:div|span) class="dropdown-display-text">|<span class="passage-display-bcv">)(.*?)(?:<\/div>|<\/span>)'.freeze
 VERSION_RE = '(<(?:div|span) class=\'translation\'><(?:div|span) class="dropdown-display"><(?:div|span) class="dropdown-display-text">|<span class="passage-display-version">).*?(<\/div>|<\/span>)'.freeze
