@@ -372,7 +372,8 @@ passage.gsub!(%r{</p>}, '')
 if opts[:headers]
   passage.gsub!(/<h3.*?>\s*/, "\n\n## ")
 else
-  passage.gsub!(/<h3.*?>\s*/, '')
+  # Remove the full heading. If only the tags go, the heading text joins the previous verse.
+  passage.gsub!(%r{<h3.*?</h3>\s*}, '')
 end
 passage.gsub!(%r{</h3>}, '')
 passage.gsub!(/<b>/, '**')
